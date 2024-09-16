@@ -6,7 +6,6 @@
   <img src="https://s3-ap-southeast-2.amazonaws.com/insidesherpa-assets/yc/workatastartup_logo_orange-c2a27f6374f9395166ee9906e2e0873af835b3c6132ae6aa0543582298567041.svg"></a>
 </p>
 
-
 <p align='center'> 
   <b><a href="#task"> Task Overview</a></b>
   | 
@@ -18,8 +17,8 @@
            
 </p>
 
+# Introduction
 
-# Introduction 
 <p> 
 <b> College Students: 
   Learn how to work at a Y Combinator startup </b>
@@ -36,6 +35,7 @@ In the backend, what you need to do is write a few functions that take the user 
 <br><br>
 
 Acceptance Criteria
+
 <ul>
   <li>When a user moves a card from one swimlane to another, the database updates the position of the client accordingly.</li>
   <li>When a user rearranges a card in the same swimlane, the database updates the position of the client accordingly.</li>
@@ -67,15 +67,19 @@ Start the server by running:
 This command will run the Express server on localhost:3001
 
 Try the API by running:
-### curl -X GET http://localhost:3001/api/v1/clients
-### curl -X GET http://localhost:3001/api/v1/clients?status=backlog
-### curl -X GET http://localhost:3001/api/v1/clients/1
-### curl -X PUT http://localhost:3001/api/v1/clients/1 -H "Content-Type: application/json" -d '{"status":"in-progress", "priority": 6}'
 
+### curl -X GET http://localhost:3001/api/v1/clients
+
+### curl -X GET http://localhost:3001/api/v1/clients?status=backlog
+
+### curl -X GET http://localhost:3001/api/v1/clients/1
+
+### curl -X PUT http://localhost:3001/api/v1/clients/1 -H "Content-Type: application/json" -d '{"status":"in-progress", "priority": 6}'
 
 For this task, you only need to update the API for updating client detail.
 
 Valid status:
+
 - backlog
 - in-progress
 - complete
@@ -97,6 +101,7 @@ Should insert the client at the right priority and reorder the priority in clien
 ### curl -X PUT http://localhost:3001/api/v1/clients/1 -H "Content-Type: application/json" -d '{"status":"complete", "priority": 3}'
 
 ## Additional Resources
+
 Node JS: https://nodejs.org/en/
 Express: https://expressjs.com
 better-sqlite3: https://github.com/JoshuaWise/better-sqlite3/blob/HEAD/docs/api.md

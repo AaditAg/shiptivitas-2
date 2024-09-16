@@ -114,7 +114,7 @@ app.get('/api/v1/clients/:id', (req, res) => {
  *      priority (optional): integer,
  *
  */
-app.put('/api/v1/clients/:id', (req, res) => {
+app.put('/api/v1/clients/:id', async (req, res) => {
   const id = parseInt(req.params.id , 10);
   const { valid, messageObj } = validateId(id);
   if (!valid) {
@@ -127,8 +127,31 @@ app.put('/api/v1/clients/:id', (req, res) => {
 
   /* ---------- Update code below ----------*/
 
+  if (status !== 'backlog' && status !== 'in-progress' && status !== 'complete') {
+    return res.status(400).send({
+      'message': 'Invalid status provided.',
+      'long_message': 'Status can only be one of the following: [backlog | in-progress | complete].',
+    });
+  }
 
+  let sameStatusClients = db.prepare('SELECT * FROM clients WHERE status = ? AND id <> ? ORDER BY priority ASC').all(status || client.status, id);
 
+  if (priority) {
+    const updateStmt = db.prepare('UPDATE clients SET status = ?, priority = ? WHERE id = ?');
+    updateStmt.run(status || client.status, priority, id);
+    sameStatusClients.forEach((otherClient) => {
+      if (otherClient.priority >= priority) {
+        const newPriority = otherClient.priority + 1;
+        const shiftStmt = db.prepare('UPDATE clients SET priority = ? WHERE id = ?');
+        shiftStmt.run(newPriority, otherClient.id);
+      }
+    });
+  } else {
+    const updateStmt = db.prepare('UPDATE clients SET status = ? WHERE id = ?');
+    updateStmt.run(status || client.status, id);
+  }
+
+  clients = db.prepare('SELECT * FROM clients').all();
   return res.status(200).send(clients);
 });
 

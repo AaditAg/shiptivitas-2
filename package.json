@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "The Backend of Shiptivity",
   "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel server.js --out-dir build",
-    "start": "babel-watch server.js"
+    "start": "node build/server.js",
+    "dev": "babel-watch server.js"
   },
   "repository": {
     "type": "git",
@@ -22,15 +27,14 @@
   },
   "homepage": "https://github.com/insidesherpa/shiptivity-2#readme",
   "dependencies": {
-    "better-sqlite3": "^5.4.0",
-    "express": "^4.16.4"
+    "better-sqlite3": "^11.3.0",
+    "core-js": "^3.38.1",
+    "express": "^4.21.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-watch": "^7.0.0"
+    "@babel/cli": "^7.25.6",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.5",
+    "babel-watch": "^7.8.1"
   }
 }
